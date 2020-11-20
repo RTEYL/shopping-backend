@@ -2,9 +2,11 @@ class Api::V1::OrdersController < ApplicationController
 
   def  create
     byebug
-    user = User.find_by_id(params[:user])
+    user = User.find_by_id(order_params[:user_id])
     if user && user.id === current_user.id
-      user.orders.build(params[:data])
+      order = user.orders.build(order_params)
+    else
+      order = Orders.create(order_params)
     end
 
   end
