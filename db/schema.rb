@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_12_000803) do
+ActiveRecord::Schema.define(version: 2020_11_20_021826) do
 
   create_table "items", force: :cascade do |t|
     t.string "category"
@@ -23,6 +23,24 @@ ActiveRecord::Schema.define(version: 2020_11_12_000803) do
     t.string "image"
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "city"
+    t.string "country_code"
+    t.string "line1"
+    t.string "line2"
+    t.string "postal_code"
+    t.string "recipient_name"
+    t.string "state"
+    t.string "email"
+    t.string "payerID"
+    t.string "paymentID"
+    t.string "paymentToken"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
@@ -30,4 +48,5 @@ ActiveRecord::Schema.define(version: 2020_11_12_000803) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "orders", "users"
 end
