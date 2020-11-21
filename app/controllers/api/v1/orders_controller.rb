@@ -1,14 +1,19 @@
 class Api::V1::OrdersController < ApplicationController
 
-  def  create
-    user = User.find_by_id(order_params[:user_id])
+  def index
+    user = User.find_by_id(params[:user_id])
     if user
-      if user.id === current_user.id
-        byebug
-        order = user.orders.build(order_params)
-      else
-        render json: {status: 401}
-      end
+      orders = user.orders.all
+      render json: {status: 201, orders: orders}
+    else
+      render json: {status: 401}
+    end
+  end
+
+  def  create
+    user = User.find_by_id(params[:user][:id])
+    if user
+      order = user.orders.build(order_params)
     else
       order = Order.create(order_params)
     end

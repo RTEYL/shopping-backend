@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :items
       resources :users do
-      resources :orders, only: [:create, :show]
+      resources :orders, only: [:create, :index]
       end
     end
   end
