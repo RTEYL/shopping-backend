@@ -17,7 +17,6 @@ class Api::V1::OrdersController < ApplicationController
     else
       order = Order.create(order_params)
     end
-
     if order.save
       render json: {status: 201, order: order}
     else
@@ -29,7 +28,7 @@ class Api::V1::OrdersController < ApplicationController
 private
 
 def order_params
-  params.require(:order_data).permit(:user_id, :city, :country_code, :line1, :line2, :postal_code, :recipient_name, :state, :email, :payerID, :paymentID, :paymentToken)
+  params.require(:order_data).permit(:user_id, :city, :country_code, :line1, :line2, :postal_code, :recipient_name, :state, :email, :payerID, :paymentID, :paymentToken, :purchase_date)
 end
 
 end
