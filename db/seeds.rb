@@ -9,4 +9,6 @@ require 'faker'
     price: Faker::Commerce.price,
     image: Faker::LoremFlickr.image(size: "300x300", search_terms: ['product'])
   )
+  User.create(email: 'a@a.com', password: 'asdasd', password_confirmation: 'asdasd', admin: true)
+  User.create(email: 'b@b.com', password: 'asdasd', password_confirmation: 'asdasd', admin: false)
 end
