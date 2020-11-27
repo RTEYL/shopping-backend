@@ -6,17 +6,15 @@ class Api::V1::ItemsController < ApplicationController
     end
 
     def create
-      byebug
-      item= Item.create(params)
+      item = Item.create(item_params)
       if item.save
-        render json: {status: 201, errors: "item was updated successfully"}
+        render json: {status: 201, message: "item was updated successfully"}
       else
         render json: {status: 400, errors: item.errors.full_messages}
       end
     end
 
     def show
-      byebug
       item = Item.find_by_id(params[:id])
       if item
         render json: {status: 200, item: item}
@@ -26,9 +24,8 @@ class Api::V1::ItemsController < ApplicationController
     end
 
     def update
-      byebug
-      item = Item.find_by_id(params[:id])
-      item.update(params)
+      item = Item.find_by_id(params[:item][:id])
+      item.update(item_params)
       if item.save
         render json: {status: 201, errors: "item was updated successfully"}
       else
@@ -45,4 +42,11 @@ class Api::V1::ItemsController < ApplicationController
         render json: {status: 400, errors: "server request failed to remove item"}
       end
     end
+
+  private
+
+  def item_params
+    params.require(:item).permit(:category, :brand, :name, :description, :price, :image)
+  end
+
 end
