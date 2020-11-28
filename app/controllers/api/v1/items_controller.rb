@@ -1,5 +1,8 @@
 class Api::V1::ItemsController < ApplicationController
 
+  before_action :validate_admin
+  skip_before_action :validate_admin, only: [:index]
+
     def index
       items = Item.all
       render json: items
@@ -8,7 +11,7 @@ class Api::V1::ItemsController < ApplicationController
     def create
       item = Item.create(item_params)
       if item.save
-        render json: {status: 201, message: "item was updated successfully"}
+        render json: {status: 201, item: item, message: "item was updated successfully"}
       else
         render json: {status: 400, errors: item.errors.full_messages}
       end
