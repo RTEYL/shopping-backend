@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'https://shopping-center-api.herokuapp.com/'
+    origins 'https://shopping-center-api.herokuapp.com'
 
     resource '*',
       headers: :any,
@@ -15,7 +15,7 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
       credentials: true
   end
   allow do
-    origins 'https://shoppingcenter.devtylerjones.com/'
+    origins 'https://shoppingcenter.devtylerjones.com'
 
     resource '*',
       headers: :any,
