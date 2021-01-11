@@ -4,4 +4,5 @@ Rails.application.config.session_store :cookie_store, {
   cookie_only: true,
   httponly: true,
   domain: :all,
+  secure: Rails.env.production?
 }
