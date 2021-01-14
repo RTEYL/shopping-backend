@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       render json: {
         status: :user_login_successful,
         logged_in: true,
-        user: user
+        user: UserSerializer.new(user).serializable_hash[:data][:attributes]
       }
     else
       render json: {status: 401, errors: 'Invalid Login'}
@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
       user = User.find_by_id(session[:user_id])
       render json: {
         logged_in: true,
-        user: user
+        user: UserSerializer.new(user).serializable_hash[:data][:attributes]
       }
     else
       render json: {user: {}, logged_in: false}
