@@ -12,7 +12,7 @@ class Api::V1::UsersController < ApplicationController
     if user.valid?
       render json: {
         status: :created,
-        user: user,
+        user: UserSerializer.new(user).serializable_hash[:data][:attributes]
       }
     else
       render json: {status: 500, errors: user.errors.full_messages}
@@ -22,7 +22,7 @@ class Api::V1::UsersController < ApplicationController
   def show
     user = User.find_by_id(params[:id])
     if user
-      render json: user
+      render json: UserSerializer.new(user).serializable_hash[:data][:attributes]
     else
       render json: {errors: 'user does not exist'}
     end
@@ -31,7 +31,7 @@ class Api::V1::UsersController < ApplicationController
   def edit
     user = User.find_by_id(params[:id])
     if user
-      render json: user
+      render json: UserSerializer.new(user).serializable_hash[:data][:attributes]
     else
       render json: {errors: 'user does not exist'}
     end
@@ -42,7 +42,10 @@ class Api::V1::UsersController < ApplicationController
     if user && (user.id != current_user || !user.admin) || current_user.id === 1
       user.update(user_params)
       if user.save
-        render json: {status: 201, user: user, message: 'User updated successfully'}
+        render json: {
+          status: 201,
+           user: UserSerializer.new(user).serializable_hash[:data][:attributes],
+            message: 'User updated successfully'}
       else
         reder json: {status: 400, errors: user.errors.full_messages}
       end
