@@ -1,11 +1,18 @@
 class RegistrationsController < ApplicationController
+  require 'json_web_token'
+
   def create
     user = User.create(user_params)
 
     if user.valid?
-      session[:user_id] = user.id
+      token = encode_token({
+        user_id: user.id,
+        exp: (Time.now + 1.week).to_i
+        })
+
       render json: {
         status: :created,
+        jwt: token,
         user: UserSerializer.new(user).serializable_hash[:data][:attributes],
         logged_in: true
       }
