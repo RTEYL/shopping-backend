@@ -12,7 +12,10 @@ class SessionsController < ApplicationController
       render json: {
         status: :user_login_successful,
         logged_in: true,
+<<<<<<< HEAD
         jwt: token,
+=======
+>>>>>>> b78ec61297a8e91bb72acc7d36a33bce43fedf53
         user: UserSerializer.new(user).serializable_hash[:data][:attributes]
       }
     else
@@ -30,6 +33,7 @@ class SessionsController < ApplicationController
         logged_in: true,
         jwt: token,
         user: UserSerializer.new(current_user).serializable_hash[:data][:attributes]
+        user: UserSerializer.new(user).serializable_hash[:data][:attributes]
       }
     else
       render json: {user: {}, logged_in: false}
