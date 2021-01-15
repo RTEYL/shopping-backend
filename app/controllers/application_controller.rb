@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   skip_before_action :verify_authenticity_token
   helper_method :encode_token, :auth_header, :decoded_token, :current_user, :isAdmin?, :validate_admin
 
-  SECRET = Rails.application.secrets.secret_key_base
+  SECRET = ENV['SECRET_KEY_BASE'] || Rails.application.secrets.secret_key_base
 
   def encode_token(payload)
     JWT.encode(payload, SECRET)
