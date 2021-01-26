@@ -1,6 +1,6 @@
 require 'faker'
   Item.destroy_all
-5.times do
+10.times do
   Item.create(
     brand: Faker::Company.name,
     category: Faker::Commerce.department(max: 2),
